@@ -16,15 +16,12 @@ gpu_speedup = np.array(sequential_times) / np.array(gpu_times)
 # Create the figure and axis
 fig, ax1 = plt.subplots(figsize=(12, 6))
 
-# Set up the first y-axis for execution time
+# Set up the first y-axis for execution time (normal scale, not logarithmic)
 ax1.set_xlabel("Grid Size", fontsize=14, fontweight="bold")
 ax1.set_ylabel("Execution Time (seconds)", fontsize=14, color="black")
 ax1.tick_params(axis='y', labelcolor="black", labelsize=12)
 ax1.set_xticks(grid_sizes)
 ax1.set_xticklabels(grid_sizes, fontsize=12)
-
-# Use a logarithmic scale for execution time for better readability
-ax1.set_yscale("log")
 
 # Plot execution times with highly distinguishable styles
 ax1.plot(grid_sizes, sequential_times, label="Sequential Execution", marker='o', linestyle='--', color='red', linewidth=2, markersize=10)
@@ -35,13 +32,10 @@ ax1.plot(grid_sizes, gpu_times, label="GPU Execution (CUDA)", marker='^', linest
 ax1.fill_between(grid_sizes, sequential_times, parallel_times, color='blue', alpha=0.1)
 ax1.fill_between(grid_sizes, sequential_times, gpu_times, color='green', alpha=0.1)
 
-# Create a secondary y-axis for speedup values
+# Create a secondary y-axis for speedup values (normal scale, not logarithmic)
 ax2 = ax1.twinx()
 ax2.set_ylabel("Speedup", fontsize=14, color="purple")
 ax2.tick_params(axis='y', labelcolor="purple", labelsize=12)
-
-# Use a logarithmic scale for speedup to highlight large differences
-ax2.set_yscale("log")
 
 # Plot speedup with contrasting styles
 ax2.plot(grid_sizes, cpu_speedup, label="CPU Speedup", marker='d', linestyle=':', color='purple', linewidth=2, markersize=10)
@@ -57,7 +51,7 @@ ax1.legend(loc='upper left', fontsize=12)
 ax2.legend(loc='upper right', fontsize=12)
 
 # Save the plot as an image file with high resolution
-plt.savefig("performance_comparison_final.png", dpi=300, bbox_inches='tight')
+plt.savefig("/mnt/data/performance_comparison_final.png", dpi=300, bbox_inches='tight')
 
 # Show the plot
 plt.show()
