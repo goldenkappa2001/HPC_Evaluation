@@ -4,6 +4,17 @@
 #include <iostream>
 #include <chrono>
 
+
+/**
+ * Constructor for the Shallow Water Equation (SWE) solver.
+ * Initializes variables and allocates necessary memory.
+ * 
+ * @param grid_size Number of grid points in the simulation.
+ * @param dx Spatial resolution.
+ * @param dt Time step for simulation.
+ * @param num_threads Number of threads for parallel execution.
+ */
+ 
 SWESolver::SWESolver(int grid_size, double dx, double dt, int num_threads)
     : grid_size(grid_size), dx(dx), dt(dt), num_threads(num_threads)
 {
@@ -12,6 +23,13 @@ SWESolver::SWESolver(int grid_size, double dx, double dt, int num_threads)
     u.resize(grid_size, 0.0);
 }
 
+/**
+ * Runs the simulation sequentially (single-threaded execution).
+ * Applies Runge-Kutta updates iteratively.
+ * 
+ * @param steps Number of time steps to simulate.
+ */
+ 
 void SWESolver::runSequential(int steps) {
     auto start = std::chrono::high_resolution_clock::now();
 
@@ -27,6 +45,12 @@ void SWESolver::runSequential(int steps) {
     execution_time = end - start;
     printExecutionTime();
 }
+
+/**
+ * Runs the simulation in parallel using OpenMP.
+ * 
+ * @param steps Number of time steps to simulate.
+ */
 
 void SWESolver::runParallel(int steps) {
     auto start = std::chrono::high_resolution_clock::now();
@@ -44,7 +68,10 @@ void SWESolver::runParallel(int steps) {
     printExecutionTime();
 }
 
-
+/**
+ * Prints the execution time of the last run.
+ */
+ 
 void SWESolver::printExecutionTime() {
     std::cout << "Execution time: " << execution_time.count() << " seconds\n";
 }

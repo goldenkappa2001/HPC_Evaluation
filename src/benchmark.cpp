@@ -5,6 +5,17 @@
 #include <iomanip>
 #include <chrono>
 
+
+/**
+ * Runs a benchmark test for a given solver mode.
+ * Measures execution time and logs the results.
+ * 
+ * @param solver Reference to the SWE solver instance.
+ * @param mode Execution mode: "sequential", "parallel", or "gpu".
+ * @param steps Number of time steps to simulate.
+ * @param time Variable to store execution time.
+ */
+ 
 void benchmark(SWESolver& solver, const std::string& mode, int steps, double& time) {
     auto start = std::chrono::high_resolution_clock::now();
     
@@ -19,6 +30,15 @@ void benchmark(SWESolver& solver, const std::string& mode, int steps, double& ti
     std::cout << "Mode: " << mode 
               << " | Execution Time: " << std::fixed << std::setprecision(6) << time << " seconds\n";
 }
+
+
+/**
+ * Runs benchmark tests for various grid sizes and thread configurations.
+ * Logs the results to a file in a formatted manner.
+ * 
+ * @param results_file Reference to the output file stream.
+ */
+
 
 void run_benchmarks(std::ofstream& results_file) {
     int grid_sizes[] = {10000, 25000, 50000, 100000}; 
