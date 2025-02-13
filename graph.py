@@ -13,32 +13,41 @@ gpu_times = [0.35461, 0.03248, 0.03346, 0.03615]
 cpu_speedup = np.array(sequential_times) / np.array(parallel_times)
 gpu_speedup = np.array(sequential_times) / np.array(gpu_times)
 
-# Create the figure
+# Create figure and axis
 fig, ax1 = plt.subplots(figsize=(12, 6))
 
-# Plot execution times
-ax1.set_xlabel("Grid Size")
-ax1.set_ylabel("Execution Time (seconds)", color='black')
-ax1.plot(grid_sizes, sequential_times, label="Sequential Execution", marker='o', linestyle='--', color='red')
-ax1.plot(grid_sizes, parallel_times, label="Parallel Execution (OpenMP)", marker='s', linestyle='-', color='blue')
-ax1.plot(grid_sizes, gpu_times, label="GPU Execution (CUDA)", marker='^', linestyle='-', color='green')
-ax1.tick_params(axis='y', labelcolor='black')
+# Set up the first y-axis for execution time
+ax1.set_xlabel("Grid Size", fontsize=14, fontweight="bold")
+ax1.set_ylabel("Execution Time (seconds)", fontsize=14, color="black")
+ax1.tick_params(axis='y', labelcolor="black")
+ax1.set_xticks(grid_sizes)
+ax1.set_xticklabels(grid_sizes, fontsize=12)
 
-# Add a second y-axis for speedup values
+# Plot execution times with clearer styles
+ax1.plot(grid_sizes, sequential_times, label="Sequential Execution", marker='o', linestyle='--', color='red', linewidth=2, markersize=8)
+ax1.plot(grid_sizes, parallel_times, label="Parallel Execution (OpenMP)", marker='s', linestyle='-', color='blue', linewidth=2, markersize=8)
+ax1.plot(grid_sizes, gpu_times, label="GPU Execution (CUDA)", marker='^', linestyle='-', color='green', linewidth=2, markersize=8)
+
+# Create a secondary y-axis for speedup values
 ax2 = ax1.twinx()
-ax2.set_ylabel("Speedup", color='purple')
-ax2.plot(grid_sizes, cpu_speedup, label="CPU Speedup", marker='d', linestyle=':', color='purple')
-ax2.plot(grid_sizes, gpu_speedup, label="GPU Speedup", marker='x', linestyle=':', color='orange')
-ax2.tick_params(axis='y', labelcolor='purple')
+ax2.set_ylabel("Speedup", fontsize=14, color="purple")
+ax2.tick_params(axis='y', labelcolor="purple")
 
-# Title and legend
-fig.suptitle("Performance Comparison of SWE Solver")
-ax1.legend(loc='upper left')
-ax2.legend(loc='upper right')
-ax1.grid(True)
+# Plot speedup with a different style
+ax2.plot(grid_sizes, cpu_speedup, label="CPU Speedup", marker='d', linestyle=':', color='purple', linewidth=2, markersize=8)
+ax2.plot(grid_sizes, gpu_speedup, label="GPU Speedup", marker='x', linestyle=':', color='orange', linewidth=2, markersize=8)
+
+# Set grid for better visibility
+ax1.grid(True, linestyle="--", alpha=0.6)
+
+# Add titles and legends with improved placement
+fig.suptitle("Performance Comparison of SWE Solver", fontsize=16, fontweight="bold")
+
+ax1.legend(loc='upper left', fontsize=12)
+ax2.legend(loc='upper right', fontsize=12)
 
 # Save the plot as an image file
-plt.savefig("performance_comparison.png")
+plt.savefig("performance_comparison.png", dpi=300, bbox_inches='tight')
 
 # Show the plot
 plt.show()
