@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Define the grid sizes tested in the benchmarks
+# Grid sizes used in benchmarks
 grid_sizes = [10000, 25000, 50000, 100000]
 
-# Extracted execution times from performance_results.txt
+# Execution times extracted from performance_results.txt
 sequential_times = [2.24770, 5.59528, 10.79711, 21.23850]
 parallel_times = [2.24670, 5.62904, 10.70089, 21.39217]
 gpu_times = [0.35461, 0.03248, 0.03346, 0.03615]
@@ -13,7 +13,7 @@ gpu_times = [0.35461, 0.03248, 0.03346, 0.03615]
 cpu_speedup = np.array(sequential_times) / np.array(parallel_times)
 gpu_speedup = np.array(sequential_times) / np.array(gpu_times)
 
-# Create figure and axis
+# Create the figure and axis
 fig, ax1 = plt.subplots(figsize=(12, 6))
 
 # Set up the first y-axis for execution time
@@ -57,7 +57,7 @@ ax1.legend(loc='upper left', fontsize=12)
 ax2.legend(loc='upper right', fontsize=12)
 
 # Save the plot as an image file with high resolution
-plt.savefig("performance_comparison_enhanced.png", dpi=300, bbox_inches='tight')
+plt.savefig("performance_comparison_final.png", dpi=300, bbox_inches='tight')
 
 # Show the plot
 plt.show()
