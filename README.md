@@ -3,7 +3,6 @@
 [![GPU Acceleration](https://img.shields.io/badge/GPU-Accelerated-blue)](https://developer.nvidia.com/cuda-zone)
 [![OpenMP Parallelization](https://img.shields.io/badge/OpenMP-Supported-orange)](https://www.openmp.org/)
 [![C++](https://img.shields.io/badge/Language-C++-blue)](https://isocpp.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ## 📌 Project Overview  
 This repository contains a **High-Performance Computing (HPC) implementation** of a **Shallow Water Equations (SWE) solver** using **C++ with OpenMP and CUDA**. The solver is optimized to run in **three execution modes**:  
@@ -48,3 +47,17 @@ Use CMake to configure and build the project:
 mkdir build && cd build
 cmake ..
 make
+```
+### **2️⃣ Running the Solver** 
+```bash
+./swe_simulator
+```
+
+
+
+
+
+
+
+
+
