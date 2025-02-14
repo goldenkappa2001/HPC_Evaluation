@@ -30,10 +30,10 @@ The goal of this project is to analyze **parallel performance, scalability, and 
 📦 hpc  
  ┣ 📂 repo                             # Main project folder  
  ┃ ┣ 📂 benchmark                      # Performance evaluation & benchmarking results  
- ┃ ┃ ┣ 📜 performance_results.txt      # Logged execution times & speedup analysis  
+ ┃ ┃ ┣ 📜 performance_results.txt      # Duplicate copy of performance logs  
  ┃ ┃ ┣ 🖼️ performance_comparison.png   # Graphical performance comparison  
  ┃ ┣ 📂 build                          # Compiled binaries and object files  
- ┃ ┃ ┣ 📜 performance_results.txt      # Duplicate copy of performance logs  
+ ┃ ┃ ┣ 📜 performance_results.txt      # Logged execution times & speedup analysis
  ┃ ┣ 📂 include                        # Header files  
  ┃ ┃ ┣ 📜 benchmark.h                  # Benchmarking function declarations  
  ┃ ┃ ┣ 📜 swe_solver.h                 # Shallow Water Equations (SWE) solver header  
