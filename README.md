@@ -71,6 +71,21 @@ make
 ./swe_simulator
 ```
 
+## 📊 Performance Analysis  
+
+The following table presents the **execution times and speedup factors** for different grid sizes and thread configurations. The speedup values compare **OpenMP (CPU parallelization) and CUDA (GPU acceleration)** against the **sequential execution time**.
+
+| Grid Size | Threads |   Sequential Time (s)   |   Parallel Time (s)   |   GPU Time (s)  | CPU Speedup | GPU Speedup |
+|-----------|---------|-------------------------|-----------------------|-----------------|-------------|-------------|
+| 10,000    | 8       | 2.21960                 | 2.21180               | 0.43365         | 1.00        | 5.11        |
+| ...       | ...     | ...                     | ...                   | ...             | ...         | ...         |
+| 100,000   | 64      | 21.13648                | 21.24483              | 0.13491         | 0.99        | 156.67      |
+
+📌 **Note:** Execution times are approximate and may vary slightly due to **system load and scheduling**.  
+📌 **Speedup Calculation:**  
+\[
+\text{Speedup} = \frac{\text{Sequential Execution Time}}{\text{Parallel or GPU Execution Time}}
+\]
 
 
 
