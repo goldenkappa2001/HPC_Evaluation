@@ -83,9 +83,7 @@ The following table presents the **execution times and speedup factors** for dif
 
 📌 **Note:** Execution times are approximate and may vary slightly due to **system load and scheduling**.  
 📌 **Speedup Calculation:**  
-\[
-\text{Speedup} = \frac{\text{Sequential Execution Time}}{\text{Parallel or GPU Execution Time}}
-\]
+$$ \text{Speedup} = \frac{\text{Sequential Execution Time}}{\text{Parallel or GPU Execution Time}} $$
 
 
 
