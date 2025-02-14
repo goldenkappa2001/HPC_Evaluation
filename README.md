@@ -26,8 +26,24 @@ The goal of this project is to analyze **parallel performance, scalability, and 
 
 ## 📁 Repository Organization  
 
-
-
+📦 hpc  
+ ┣ 📂 repo                          # Main project folder  
+ ┃ ┣ 📂 benchmark                   # Performance evaluation scripts   
+ ┃ ┃ ┣ 📜 performance_results.txt   # Logged execution times & speedup analysis  
+ ┃ ┣ 📂 build                       # Compiled binaries and object files  
+ ┃ ┃ ┣ 📜 performance_results.txt   # Duplicate copy of performance logs  
+ ┃ ┣ 📂 include                     # Header files  
+ ┃ ┃ ┣ 📜 benchmark.h               # Benchmarking function declarations  
+ ┃ ┃ ┣ 📜 swe_solver.h              # Shallow Water Equations (SWE) solver header  
+ ┃ ┃ ┣ 📜 runge_kutta.h             # Runge-Kutta method header  
+ ┃ ┣ 📂 src                         # Source code files  
+ ┃ ┃ ┣ 📜 main.cpp                  # Entry point for mode selection and execution  
+ ┃ ┃ ┣ 📜 swe_solver.cpp            # SWE solver (CPU implementation)  
+ ┃ ┃ ┣ 📜 swe_solver_gpu.cu         # SWE solver (GPU implementation - CUDA)  
+ ┃ ┃ ┣ 📜 runge_kunta.cpp           # Runge-Kutta numerical integration 
+ ┃ ┃ ┣ 📜 benchmark.cpp             # Benchmarking implementation 
+ ┃ ┣ 📜 CMakeLists.txt              # CMake configuration file  
+ ┣ 📜 README.md                     # Project documentation  
 
 
 ---
