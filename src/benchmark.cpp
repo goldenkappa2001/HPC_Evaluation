@@ -45,6 +45,7 @@ void run_benchmarks(std::ofstream& results_file) {
     int steps = 10000;
     int num_threads[] = {8, 16, 32, 64};
 
+	// Header for performance results
     results_file << "==========================================================================================================\n";
     results_file << " SHALLOW WATER EQUATION - PERFORMANCE RESULTS\n";
     results_file << "==========================================================================================================\n";
@@ -59,13 +60,16 @@ void run_benchmarks(std::ofstream& results_file) {
 
             std::cout << "\nRunning benchmarks for Grid Size: " << gs << " with " << nt << " threads...\n";
 
+			// Execute in different modes
             benchmark(solver, "sequential", steps, seq_time);
             benchmark(solver, "parallel", steps, par_time);
             benchmark(solver, "gpu", steps, gpu_time);
 
+			// Compute speedups
             double cpu_speedup = seq_time / par_time;
             double gpu_speedup = seq_time / gpu_time;
 
+			// Store results in file
             results_file << std::setw(10) << std::left << gs << " | "
                          << std::setw(7) << std::left << nt << " | "
                          << std::setw(20) << std::left << std::fixed << std::setprecision(5) << seq_time << " | "
