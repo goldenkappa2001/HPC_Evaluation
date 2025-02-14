@@ -66,7 +66,7 @@ mkdir build && cd build
 cmake ..
 make
 ```
-### **2️⃣ Running the Solver** 
+### **3️⃣ Running the Solver** 
 ```bash
 ./swe_simulator
 ```
