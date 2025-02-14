@@ -13,13 +13,17 @@
  * @param grid_size Number of grid points.
  */
  
-__global__ void updateGPUKernel(double* d_eta, double* d_u, int grid_size) {
+__global__ void rungeKuttaKernel(double *d_eta, double *d_u, int grid_size, double dt) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if (i >= 0 && i < grid_size) {
-        double k1 = 0.5 * d_eta[i] + d_u[i];
-        d_eta[i] += k1;
+    if (i > 0 && i < grid_size - 1) {
+        double k1 = dt * (0.5 * d_eta[i] + d_u[i]);
+        double k2 = dt * (0.5 * (d_eta[i] + k1) + d_u[i]);
+        double k3 = dt * (0.5 * (d_eta[i] + k2) + d_u[i]);
+        double k4 = dt * (0.5 * (d_eta[i] + k3) + d_u[i]);
+        d_eta[i] += (k1 + 2*k2 + 2*k3 + k4) / 6.0;
     }
 }
+
 
 /**
  * Runs the SWE simulation on GPU using CUDA.
@@ -47,7 +51,7 @@ void SWESolver::runGPU(int steps) {
 	// Launch kernel multiple times for time stepping
     auto start = std::chrono::high_resolution_clock::now();
     for (int t = 0; t < steps; ++t) {
-        updateGPUKernel<<<blocksPerGrid, threadsPerBlock>>>(d_eta, d_u, grid_size);
+        rungeKuttaKernel<<<blocksPerGrid, threadsPerBlock>>>(d_eta, d_u, grid_size, dt);
         cudaDeviceSynchronize(); // Ensure execution order
     }
  
