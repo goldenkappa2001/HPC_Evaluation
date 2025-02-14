@@ -13,14 +13,28 @@
  * @param grid_size Number of grid points.
  */
  
-__global__ void rungeKuttaKernel(double *d_eta, double *d_u, int grid_size, double dt) {
+__global__ void rungeKuttaKernel(double *d_eta, double *d_u, int grid_size, double dx, double dt) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
     if (i > 0 && i < grid_size - 1) {
-        double k1 = dt * (0.5 * d_eta[i] + d_u[i]);
-        double k2 = dt * (0.5 * (d_eta[i] + k1) + d_u[i]);
-        double k3 = dt * (0.5 * (d_eta[i] + k2) + d_u[i]);
-        double k4 = dt * (0.5 * (d_eta[i] + k3) + d_u[i]);
-        d_eta[i] += (k1 + 2*k2 + 2*k3 + k4) / 6.0;
+        // Compute k1
+        double k1_eta = dt * (0.5 * d_eta[i] + d_u[i]);
+        double k1_u = dt * (-9.81 * (d_eta[i] / dx));
+
+        // Compute k2
+        double k2_eta = dt * (0.5 * (d_eta[i] + 0.5 * k1_eta) + (d_u[i] + 0.5 * k1_u));
+        double k2_u = dt * (-9.81 * ((d_eta[i] + 0.5 * k1_eta) / dx));
+
+        // Compute k3
+        double k3_eta = dt * (0.5 * (d_eta[i] + 0.5 * k2_eta) + (d_u[i] + 0.5 * k2_u));
+        double k3_u = dt * (-9.81 * ((d_eta[i] + 0.5 * k2_eta) / dx));
+
+        // Compute k4
+        double k4_eta = dt * (0.5 * (d_eta[i] + k3_eta) + (d_u[i] + k3_u));
+        double k4_u = dt * (-9.81 * ((d_eta[i] + k3_eta) / dx));
+
+        // Update the values using RK4 formula
+        d_eta[i] += (k1_eta + 2*k2_eta + 2*k3_eta + k4_eta) / 6.0;
+        d_u[i] += (k1_u + 2*k2_u + 2*k3_u + k4_u) / 6.0;
     }
 }
 
@@ -51,7 +65,7 @@ void SWESolver::runGPU(int steps) {
 	// Launch kernel multiple times for time stepping
     auto start = std::chrono::high_resolution_clock::now();
     for (int t = 0; t < steps; ++t) {
-        rungeKuttaKernel<<<blocksPerGrid, threadsPerBlock>>>(d_eta, d_u, grid_size, dt);
+        rungeKuttaKernel<<<blocksPerGrid, threadsPerBlock>>>(d_eta, d_u, grid_size, dx, dt);
         cudaDeviceSynchronize(); // Ensure execution order
     }
  
